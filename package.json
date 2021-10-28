@@ -1,12 +1,18 @@
 {
   "name": "MiaTwitchChannelBot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bot to handle different custom events on twitch channels",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Martin Röbke <martin.roebke@web.de>",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/VaeterchenFrost/MiaTwitchChannelBot.git",
+  "dependencies": {
+    "@twurple/api": "^5.0.7",
+    "@twurple/auth": "^5.0.7",
+    "@twurple/eventsub": "^5.0.7"
+  }
 }
