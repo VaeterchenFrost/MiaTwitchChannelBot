@@ -17,8 +17,7 @@ function getLadderRank(text, rank, type) {
       .map((_, i) => 1 + i)
       .includes(rank)
   ) {
-    console.log(`Rank ${rank} not seen!`);
-    return;
+    return `Rank ${rank} not seen!`;
   }
   // console.log(text);
   const root = parse(text, "text/xml");
