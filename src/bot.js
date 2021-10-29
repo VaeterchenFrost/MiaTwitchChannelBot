@@ -34,7 +34,7 @@ function onMessageHandler(target, context, msg, self) {
   if (commandName.startsWith("!dice")) {
     const num = rollDice();
     client.say(target, `@${context.username} rolled a ${num}`);
-    console.log(`* Executed ${commandName} command`);
+    console.log(`* ${context.username} Executed ${commandName} command`);
   } else if (
     commandName.startsWith("/rnd") ||
     commandName.startsWith("rnd ") ||
@@ -46,16 +46,16 @@ function onMessageHandler(target, context, msg, self) {
       args.length == 1 ? 100 : parseInt(args[args.length == 2 ? 1 : 2])
     );
     client.say(target, `@${context.username} rolled a ${rnd[0]} (${rnd[1]},${rnd[2]}) `);
-    console.log(`* Executed ${commandName} command in ${target}`);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!ladder ") || commandName.startsWith("!ladder2")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/2v2/1/80 `);
-    console.log(`* Executed ${commandName} command in ${target}`);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!ladder 3") || commandName.startsWith("!ladder3")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/3v3/1/80 `);
-    console.log(`* Executed ${commandName} command in ${target}`);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!ladder 5") || commandName.startsWith("!ladder5")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/5v5/1/80 `);
-    console.log(`* Executed ${commandName} command in ${target}`);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!rank")) {
     const args = commandName.split(" ");
     getWarmaneTeam(
@@ -69,14 +69,14 @@ function onMessageHandler(target, context, msg, self) {
         } `
       )
     );
-    console.log(`* Executed ${commandName} command in ${target}`);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (context["custom-reward-id"] === "af5c3e0f-6ef2-4af2-8ec4-bde629e29030") {
     // https://www.bit01.de/blog/twitch-bot-ge-rewards-via-tmi-jsget/
     client.say(
       target,
       `@${context.username} Reward af5c3e0f-6ef2-4af2-8ec4-bde629e29030 with ${commandName}`
     );
-    console.log(`* Executed ${commandName} command`);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else {
     console.log(`* Unknown command ${commandName} ${context["custom-reward-id"]}`);
   }
