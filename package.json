@@ -9,10 +9,13 @@
   "keywords": [],
   "author": "Martin Röbke <martin.roebke@web.de>",
   "license": "MIT",
+  "type": "module",
   "repository": "https://github.com/VaeterchenFrost/MiaTwitchChannelBot.git",
   "dependencies": {
-    "@twurple/api": "^5.0.7",
-    "@twurple/auth": "^5.0.7",
-    "@twurple/eventsub": "^5.0.7"
+    "@twurple/api": "^5.0.8",
+    "@twurple/auth": "^5.0.8",
+    "@twurple/chat": "^5.0.8",
+    "@twurple/eventsub": "^5.0.8",
+    "dotenv": "^10.0.0"
   }
 }
