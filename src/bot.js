@@ -6,7 +6,7 @@ const { client: _client } = pkg;
 const opts = {
   identity: {
     username: "free3ze",
-    password: process.env.TWITCH_TMI_PW,
+    password: process.env.TWITCH_TMI_PW, // https://twitchapps.com/tmi/
   },
   channels: ["free3ze", "torstenstock", "crimzonqt", "mya_wallace"],
 };
