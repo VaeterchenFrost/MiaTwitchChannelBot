@@ -8,7 +8,7 @@ const opts = {
     username: "free3ze",
     password: process.env.TWITCH_TMI_PW, // https://twitchapps.com/tmi/
   },
-  channels: ["free3ze", "torstenstock", "crimzonqt", "mya_wallace"],
+  channels: ["torstenstock"],
 };
 
 // Create a client with our options
@@ -71,7 +71,7 @@ function onMessageHandler(target, context, msg, self) {
     client.say(target, `@${context.username} rolled a ${rnd[0]} (${rnd[1]},${rnd[2]}) `);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!server")) {
-    client.say(target, `@${context.username} ${target==="#torstenstock"?"www.warmane.com (EN)":"rising-gods.de (DE)"}`);
+    client.say(target, `@${context.username} www.warmane.com (EN)`);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName==="!ladder" || commandName.startsWith("!ladder2")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/2v2/1/80 `);
@@ -98,13 +98,6 @@ function onMessageHandler(target, context, msg, self) {
           target != "#torstenstock" ? reply : reply.replace("FeelsAmazingMan", "pepeOK")
         } `
       )
-    );
-    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (context["custom-reward-id"] === "64d08c6a-1764-4450-b9a2-4f945d96bfa4") { // test 64d08c6a-1764-4450-b9a2-4f945d96bfa4
-    // https://www.bit01.de/blog/twitch-bot-ge-rewards-via-tmi-jsget/
-    client.say(
-      target,
-      `@${context.username} Reward 64d08c6a-1764-4450-b9a2-4f945d96bfa4 with ${commandName}`
     );
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else {
