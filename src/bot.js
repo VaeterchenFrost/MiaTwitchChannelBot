@@ -1,5 +1,4 @@
 import pkg from "tmi.js";
-import getWarmaneTeam from "./warmaneladder.js";
 const { client: _client } = pkg;
 
 // Define configuration options
@@ -8,7 +7,7 @@ const opts = {
     username: "free3ze",
     password: process.env.TWITCH_TMI_PW, // https://twitchapps.com/tmi/
   },
-  channels: ["free3ze", "torstenstock", "crimzonqt", "mya_wallace"],
+  channels: ["free3ze", "crimzonqt", "mya_wallace"],
 };
 
 // Create a client with our options
@@ -35,8 +34,11 @@ function onMessageHandler(target, context, msg, self) {
     const num = rollDice();
     client.say(target, `@${context.username} rolled a ${num}`);
     console.log(`* ${context.username} Executed ${commandName} command`);
-  } else if (["!c","!cmd","!commands"].includes(commandName)) {
-    client.say(target, "bot-commands: !c, !dice, !q (Question), rnd[/rnd](#from) (#to), !server, !ladder, !ladder3, !ladder5, !solo, !rank (1-50) 2v2[3v3,5v5]");
+  } else if (["!c", "!cmd", "!commands"].includes(commandName)) {
+    client.say(
+      target,
+      "bot-commands: !c, !dice, !q (Question), rnd[/rnd](#from) (#to), !server, !ladder, !ladder3, !ladder5, !solo, !rank (1-50) 2v2[3v3,5v5]"
+    );
     console.log(`* ${context.username} Executed ${commandName} command`);
   } else if (commandName.startsWith("!q ")) {
     const num = rollDice();
@@ -47,7 +49,7 @@ function onMessageHandler(target, context, msg, self) {
       "if lucky",
       "if unlucky",
       "yes",
-      "no"
+      "no",
     ];
     const randKappa = ["Kappa", "KappaClaus", "KappaHD", "DendiFace", "EleGiggle"];
     client.say(
@@ -71,41 +73,12 @@ function onMessageHandler(target, context, msg, self) {
     client.say(target, `@${context.username} rolled a ${rnd[0]} (${rnd[1]},${rnd[2]}) `);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!server")) {
-    client.say(target, `@${context.username} ${target==="#torstenstock"?"www.warmane.com (EN)":"rising-gods.de (DE)"}`);
+    client.say(target, `@${context.username} ${"rising-gods.de (DE)"}`);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (commandName==="!ladder" || commandName.startsWith("!ladder2")) {
-    client.say(target, `@${context.username} armory.warmane.com/ladder/2v2/1/80 `);
-    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (commandName.startsWith("!ladder 3") || commandName.startsWith("!ladder3")) {
-    client.say(target, `@${context.username} armory.warmane.com/ladder/3v3/1/80 `);
-    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (commandName.startsWith("!ladder 5") || commandName.startsWith("!ladder5")) {
-    client.say(target, `@${context.username} armory.warmane.com/ladder/5v5/1/80 `);
-    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  }
-  else if (commandName.startsWith("!solo")) {
-    client.say(target, `@${context.username} armory.warmane.com/ladder/SoloQ/1/80 `);
-    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (commandName.startsWith("!rank")) {
-    const args = commandName.split(" ");
-    getWarmaneTeam(
-      args.length > 1 ? parseInt(args[1]) : 1,
-      args.length > 2 ? parseInt(args[2]) : 2
-    ).then((reply) =>
-      client.say(
-        target,
-        `@${context.username} ${
-          target != "#torstenstock" ? reply : reply.replace("FeelsAmazingMan", "pepeOK")
-        } `
-      )
-    );
-    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (context["custom-reward-id"] === "64d08c6a-1764-4450-b9a2-4f945d96bfa4") { // test 64d08c6a-1764-4450-b9a2-4f945d96bfa4
+  } else if (context["custom-reward-id"] === "64d08c6a-1764-4450-b9a2-4f945d96bfa4") {
+    // test 64d08c6a-1764-4450-b9a2-4f945d96bfa4
     // https://www.bit01.de/blog/twitch-bot-ge-rewards-via-tmi-jsget/
-    client.say(
-      target,
-      `@${context.username} Reward 64d08c6a-1764-4450-b9a2-4f945d96bfa4 with ${commandName}`
-    );
+    client.say(target, `@${context.username} Reward with ${commandName}`);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else {
     console.log(`* Unknown command ${commandName} ${context["custom-reward-id"]}`);
