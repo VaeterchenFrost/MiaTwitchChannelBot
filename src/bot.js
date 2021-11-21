@@ -8,7 +8,7 @@ const opts = {
     username: "free3ze",
     password: process.env.TWITCH_TMI_PW, // https://twitchapps.com/tmi/
   },
-  channels: ["torstenstock"],
+  channels: ["torstenstock", "free3ze"],
 };
 
 // Create a client with our options
@@ -35,8 +35,11 @@ function onMessageHandler(target, context, msg, self) {
     const num = rollDice();
     client.say(target, `@${context.username} rolled a ${num}`);
     console.log(`* ${context.username} Executed ${commandName} command`);
-  } else if (["!c","!cmd","!commands"].includes(commandName)) {
-    client.say(target, "bot-commands: !c, !dice, !q (Question), rnd[/rnd](#from) (#to), !server, !ladder, !ladder3, !ladder5, !solo, !rank (1-50) 2v2[3v3,5v5]");
+  } else if (["!c", "!cmd", "!commands"].includes(commandName)) {
+    client.say(
+      target,
+      "bot-commands: !c, !dice, !q (Question), !p (emote), rnd[/rnd](#from) (#to), !server, !ladder, !ladder3, !ladder5, !solo, !rank (1-50) 2v2[3v3,5v5]"
+    );
     console.log(`* ${context.username} Executed ${commandName} command`);
   } else if (commandName.startsWith("!q ")) {
     const num = rollDice();
@@ -47,7 +50,7 @@ function onMessageHandler(target, context, msg, self) {
       "if lucky",
       "if unlucky",
       "yes",
-      "no"
+      "no",
     ];
     const randKappa = ["Kappa", "KappaClaus", "KappaHD", "DendiFace", "EleGiggle"];
     client.say(
@@ -63,7 +66,7 @@ function onMessageHandler(target, context, msg, self) {
     commandName.startsWith("rnd ") ||
     commandName === "rnd"
   ) {
-    const args = commandName.split(" ");
+    const args = commandName.trim().split(" ");
     const rnd = randomInt(
       args.length < 3 ? 1 : parseInt(args[1]),
       args.length == 1 ? 100 : parseInt(args[args.length == 2 ? 1 : 2])
@@ -73,8 +76,16 @@ function onMessageHandler(target, context, msg, self) {
   } else if (commandName.startsWith("!server")) {
     client.say(target, `@${context.username} www.warmane.com (EN)`);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  } else if (commandName==="!ladder" || commandName.startsWith("!ladder2")) {
+  } else if (commandName === "!ladder" || commandName.startsWith("!ladder2")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/2v2/1/80 `);
+    console.log(`* ${context.username} Executed ${commandName} in ${target}`);
+  } else if (commandName.startsWith("!p ")) {
+    const args = commandName.trim().split(" ");
+    if (args.length < 2) {
+      return;
+    }
+    const elem = args[1];
+    pyramid(client, target, elem);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!ladder 3") || commandName.startsWith("!ladder3")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/3v3/1/80 `);
@@ -82,12 +93,11 @@ function onMessageHandler(target, context, msg, self) {
   } else if (commandName.startsWith("!ladder 5") || commandName.startsWith("!ladder5")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/5v5/1/80 `);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
-  }
-  else if (commandName.startsWith("!solo")) {
+  } else if (commandName.startsWith("!solo")) {
     client.say(target, `@${context.username} armory.warmane.com/ladder/SoloQ/1/80 `);
     console.log(`* ${context.username} Executed ${commandName} in ${target}`);
   } else if (commandName.startsWith("!rank")) {
-    const args = commandName.split(" ");
+    const args = commandName.trim().split(" ");
     getWarmaneTeam(
       args.length > 1 ? parseInt(args[1]) : 1,
       args.length > 2 ? parseInt(args[2]) : 2
@@ -109,6 +119,18 @@ function onMessageHandler(target, context, msg, self) {
 function rollDice() {
   const sides = 6;
   return Math.floor(Math.random() * sides) + 1;
+}
+
+// Function called when the "pyramid" command is issued
+function pyramid(client, target, elem) {
+  const timer = (ms) => new Promise((res) => setTimeout(res, ms));
+  client.say(target, `${elem}`);
+  client.say(target, `${elem} ${elem}`);
+  client.say(target, `${elem} ${elem} ${elem}`);
+  client.say(target, `${elem} ${elem} ${elem} ${elem}`);
+  client.say(target, `${elem} ${elem} ${elem}`);
+  client.say(target, `${elem} ${elem}`);
+  client.say(target, `${elem}`);
 }
 
 // Called every time the bot connects to Twitch chat
